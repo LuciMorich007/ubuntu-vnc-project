@@ -5,16 +5,13 @@ echo "[*] Termux environment ကို ပြင်ဆင်နေသည်..."
 pkg update -y && pkg upgrade -y
 pkg install proot-distro wget -y
 
-# ၂။ Ubuntu OS ကို သင့် GitHub မှ တိုက်ရိုက် Install လုပ်ခြင်း
-UBUNTU_URL="https://github.com/LuciMorich007/ubuntu-vnc-project/releases/download/v1.0/ubuntu-22.04-server-cloudimg-arm64-root.tar.xz"
-
+# ၂။ Ubuntu OS ကို GitHub မှ တိုက်ရိုက် Install လုပ်ခြင်း (Method New)
 echo "[*] Ubuntu OS ကို GitHub မှ Download ဆွဲပြီး Install လုပ်နေသည်..."
-echo "[*] ဖိုင်ဆိုဒ်ကြီးသဖြင့် ခေတ္တစောင့်ဆိုင်းပေးပါ..."
-# Ubuntu OS ကို GitHub မှ ဆွဲယူသွင်းခြင်း (နည်းလမ်းသစ်)
 export PD_OVERRIDE_TARBALL_URL="https://github.com/LuciMorich007/ubuntu-vnc-project/releases/download/v1.0/ubuntu-22.04-server-cloudimg-arm64-root.tar.xz"
 export PD_OVERRIDE_TARBALL_STRIP_OPT=0
 
-echo "[*] Installing Ubuntu (Custom URL)..."
+# အရင်က အမှားကျန်ခဲ့ရင် ဖျက်ထုတ်ပြီးမှ အသစ်ပြန်သွင်းရန်
+proot-distro remove ubuntu 2>/dev/null
 proot-distro install ubuntu
 
 # ၃။ Ubuntu ထဲမှာ GUI (XFCE4) နှင့် VNC သွင်းရန် Script ကို ကြိုတင်ဖန်တီးခြင်း
@@ -23,7 +20,7 @@ cat <<EOF > $PREFIX/var/lib/proot-distro/installed-rootfs/ubuntu/root/setup_vnc.
 #!/bin/bash
 export DEBIAN_FRONTEND=noninteractive
 apt update
-echo "[*] GUI အတွက် လိုအပ်သော ဖိုင်များကို Install လုပ်နေသည် (၅ မိနစ်ခန့် ကြာနိုင်သည်)..."
+echo "[*] GUI အတွက် လိုအပ်သော ဖိုင်များကို Install လုပ်နေသည်..."
 apt install xfce4 xfce4-goodies tightvncserver dbus-x11 -y
 
 # VNC Startup Config ပြုလုပ်ခြင်း
@@ -50,6 +47,5 @@ echo "   INSTALLATION COMPLETE (အားလုံးပြီးပါပြီ
 echo "------------------------------------------"
 echo "၁။ Ubuntu ထဲဝင်ရန်: start-ubuntu ဟုရိုက်ပါ။"
 echo "၂။ Desktop ဖွင့်ရန်: vncserver :1 ဟုရိုက်ပါ။"
-echo "   (ပထမဆုံးအကြိမ်တွင် Password ၆ လုံး ပေးရပါမည်)"
 echo "၃။ Android VNC Viewer app မှ localhost:1 ဖြင့် ချိတ်ဆက်ပါ။"
 echo "------------------------------------------"
