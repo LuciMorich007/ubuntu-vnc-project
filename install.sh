@@ -10,7 +10,12 @@ UBUNTU_URL="https://github.com/LuciMorich007/ubuntu-vnc-project/releases/downloa
 
 echo "[*] Ubuntu OS ကို GitHub မှ Download ဆွဲပြီး Install လုပ်နေသည်..."
 echo "[*] ဖိုင်ဆိုဒ်ကြီးသဖြင့် ခေတ္တစောင့်ဆိုင်းပေးပါ..."
-proot-distro install ubuntu --url $UBUNTU_URL
+# Ubuntu OS ကို GitHub မှ ဆွဲယူသွင်းခြင်း (နည်းလမ်းသစ်)
+export PD_OVERRIDE_TARBALL_URL="https://github.com/LuciMorich007/ubuntu-vnc-project/releases/download/v1.0/ubuntu-22.04-server-cloudimg-arm64-root.tar.xz"
+export PD_OVERRIDE_TARBALL_STRIP_OPT=0
+
+echo "[*] Installing Ubuntu (Custom URL)..."
+proot-distro install ubuntu
 
 # ၃။ Ubuntu ထဲမှာ GUI (XFCE4) နှင့် VNC သွင်းရန် Script ကို ကြိုတင်ဖန်တီးခြင်း
 echo "[*] Desktop Environment (XFCE4) နှင့် VNC Server အတွက် ပြင်ဆင်နေသည်..."
